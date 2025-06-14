@@ -5,23 +5,24 @@ const jenisKelaminSelect = document.getElementById('jenisKelamin');
 const diagnosisSelect = document.getElementById('diagnosis');
 const tambahDataBtn = document.getElementById('tambahDataBtn');
 
-// Dummy data for Biostatistik (for demonstration purposes)
-// Menggunakan localStorage untuk menyimpan data agar tidak hilang saat refresh
-let pasienData = JSON.parse(localStorage.getItem('pasienData')) || [];
-//let pasienData = []; // Array to store patient data
-
 // Get table body and stats div
 const dataPasienTableBody = document.querySelector('#dataPasienTable tbody');
 const diagnosisStatsDiv = document.getElementById('diagnosisStats');
+const noStatsMessage = document.getElementById('noStatsMessage'); // NEW
 
 // Reference for the Chart.js canvas
-//const ctx = document.getElementById('diagnosisPieChart').getContext('2d');
 const diagnosisPieChartCanvas = document.getElementById('diagnosisPieChart');
-const ctx = diagnosisPieChartCanvas.getContext('2d'); // Pastikan ini tidak null!
-let diagnosisChart; // Variable to hold the Chart.js instance
+let diagnosisChart = null; // To hold the Chart.js instance
+
+// NEW: Reference for the percentage list
+const diagnosisPercentageList = document.getElementById('diagnosisPercentageList');
 
 
-// Functions for Biostatistik Page
+// Dummy data for storing patient records in localStorage
+let pasienData = JSON.parse(localStorage.getItem('pasienData')) || [];
+
+
+// Function to add new patient data
 function addPasienData() {
     const id = pasienIdInput.value.trim();
     const usia = parseInt(usiaInput.value);
@@ -30,20 +31,33 @@ function addPasienData() {
 
     if (id && !isNaN(usia) && usia > 0 && diagnosis) {
         pasienData.push({ id, usia, jenisKelamin, diagnosis });
+        localStorage.setItem('pasienData', JSON.stringify(pasienData)); // Save to localStorage
+
         renderPasienData();
-        calculateAndDisplayStats(); // Update both list and chart
+        calculateAndDisplayStats();
+
         // Clear form fields
         pasienIdInput.value = '';
         usiaInput.value = '';
         jenisKelaminSelect.value = 'L';
         diagnosisSelect.value = 'K35-Appendicitis';
+
     } else {
         alert('Harap lengkapi semua data pasien dengan benar.');
     }
 }
 
+// Function to render patient data in the table
 function renderPasienData() {
-    dataPasienTableBody.innerHTML = ''; // Clear existing table rows
+    dataPasienTableBody.innerHTML = ''; // Clear existing table data
+
+    if (pasienData.length === 0) {
+        // Optionally, hide the table if no data
+        // dataPasienTable.style.display = 'none';
+        return;
+    }
+    // dataPasienTable.style.display = 'table'; // Show table if data exists
+
     pasienData.forEach(pasien => {
         const row = dataPasienTableBody.insertRow();
         row.insertCell().textContent = pasien.id;
@@ -53,94 +67,94 @@ function renderPasienData() {
     });
 }
 
+// Function to calculate and display statistics
 function calculateAndDisplayStats() {
-    const stats = {};
+    // Hide "no data" message if there is data, show if not
     if (pasienData.length === 0) {
-        // Jika tidak ada data, sembunyikan canvas dan tampilkan pesan
-        diagnosisPieChartCanvas.style.display = 'none';
-        diagnosisStatsDiv.querySelector('p').style.display = 'block'; // Tampilkan pesan
+        noStatsMessage.style.display = 'block';
+        diagnosisPercentageList.innerHTML = ''; // Clear percentage list
         if (diagnosisChart) {
-            diagnosisChart.destroy(); // Hancurkan chart yang ada
+            diagnosisChart.destroy();
             diagnosisChart = null;
         }
         return;
-
-
-    // if (pasienData.length === 0) {
-    //     diagnosisStatsDiv.innerHTML = '<p>Belum ada data pasien untuk dihitung statistiknya.</p><div style="width: 400px; margin: 20px auto;"><canvas id="diagnosisPieChart"></canvas></div>'; // Reset HTML if no data
-    //     if (diagnosisChart) {
-    //         diagnosisChart.destroy(); // Destroy existing chart if no data
-    //         diagnosisChart = null;
-    //     }
-    //     return;
+    } else {
+        noStatsMessage.style.display = 'none';
     }
 
-    // Jika ada data, tampilkan canvas dan sembunyikan pesan
-    diagnosisPieChartCanvas.style.display = 'block';
-    diagnosisStatsDiv.querySelector('p').style.display = 'none'; // Sembunyikan pesan
 
+    const diagnosisCounts = {};
     pasienData.forEach(pasien => {
-        stats[pasien.diagnosis] = (stats[pasien.diagnosis] || 0) + 1;
+        diagnosisCounts[pasien.diagnosis] = (diagnosisCounts[pasien.diagnosis] || 0) + 1;
     });
 
-    // Prepare data for Chart.js
-    const labels = Object.keys(stats);
-    const dataValues = Object.values(stats);
+    const totalCases = pasienData.length;
 
-    // Generate random distinct colors for the pie chart
-    const backgroundColors = labels.map(() => `hsl(${Math.random() * 360}, 70%, 60%)`);
-    const borderColors = labels.map(() => `hsl(${Math.random() * 360}, 70%, 50%)`);
+    let statsHtml = '';
+    const chartLabels = [];
+    const chartData = [];
+    const chartBackgroundColors = []; // For pie chart colors
 
+    // Clear previous percentage list
+    diagnosisPercentageList.innerHTML = '';
 
-    // Destroy existing chart if it exists to prevent overlap
-    if (diagnosisChart) {
-        diagnosisChart.destroy();
+    // Convert counts to percentages and build the list and chart data
+    for (const diagnosis in diagnosisCounts) {
+        const count = diagnosisCounts[diagnosis];
+        const percentage = ((count / totalCases) * 100).toFixed(1); // One decimal place
+        
+        // Add to the percentage list
+        const listItem = document.createElement('li');
+        listItem.textContent = `${diagnosis}: ${count} kasus (${percentage}%)`;
+        diagnosisPercentageList.appendChild(listItem);
+
+        // Add to chart data
+        chartLabels.push(diagnosis);
+        chartData.push(count);
+        // Generate a random color for the pie chart slice
+        chartBackgroundColors.push(`rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.7)`);
     }
 
-    // Create new chart
-    diagnosisChart = new Chart(ctx, {
-        type: 'pie',
-        data: {
-            labels: labels,
-            datasets: [{
-                data: dataValues,
-                backgroundColor: backgroundColors,
-                borderColor: borderColors,
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: true,
-                    text: 'Distribusi Diagnosis Pasien'
+    // Update Chart.js (or create if not exists)
+    if (diagnosisChart) {
+        diagnosisChart.data.labels = chartLabels;
+        diagnosisChart.data.datasets[0].data = chartData;
+        diagnosisChart.data.datasets[0].backgroundColor = chartBackgroundColors;
+        diagnosisChart.update();
+    } else {
+        diagnosisChart = new Chart(diagnosisPieChartCanvas, {
+            type: 'pie',
+            data: {
+                labels: chartLabels,
+                datasets: [{
+                    data: chartData,
+                    backgroundColor: chartBackgroundColors,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: false,
+                        text: 'Distribusi Diagnosis'
+                    }
                 }
             }
-        }
-    });
-
-    // Optionally, keep the list representation as well
-    // let statsHtml = '<h4>Jumlah Kasus per Diagnosis:</h4><ul>';
-    // for (const diagnosis in stats) {
-    //     statsHtml += `<li>${diagnosis}: ${stats[diagnosis]} kasus</li>`;
-    // }
-    // statsHtml += '</ul>';
-    // diagnosisStatsDiv.innerHTML = statsHtml + diagnosisStatsDiv.innerHTML; // Append list to existing content
+        });
+    }
 }
 
 
-// Event listener for "Tambah Data" button in Biostatistik
+// Add event listener for "Tambah Data" button in Biostatistik
 tambahDataBtn.addEventListener('click', addPasienData);
 
-// Initialize: render data and stats when the Biostatistik page loads
+
+// Initialize: render data and calculate stats when the Biostatistik page loads
 document.addEventListener('DOMContentLoaded', () => {
-    // We don't need to call renderPasienData() or calculateAndDisplayStats() here
-    // directly, as they will be called when data is added.
-    // However, if you load initial data, you'd call them here.
-    // For now, ensure the chart is initialized empty if no data.
-    calculateAndDisplayStats(); // Call once to initialize empty chart or with loaded data
+    renderPasienData();
+    calculateAndDisplayStats();
 });
