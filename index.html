@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Program Studi Rekam Medis</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <div class="header">
+        <img src="https://via.placeholder.com/50x50?text=Logo" alt="Esa Unggul Logo" class="logo">
+        <div class="title">Program Studi D3 Rekam Medis dan Informasi Kesehatan</div>
+    </div>
+
+    <div class="main-content">
+        <div id="home-page">
+            <div class="welcome-message">Selamat datang di Aplikasi Rekam Medis</div>
+
+            <div class="button-group">
+                <a href="#" class="button" id="btn-icd10-search">
+                    <i class="fas fa-search"></i> Cari Kode ICD-10
+                </a>
+                <a href="biostatistik.html" class="button" id="btn-biostatistik">
+                    <i class="fas fa-chart-bar"></i> Biostatistik
+                </a>
+                <a href="#" class="button" id="btn-input-pasien-baru">
+                    <i class="fas fa-plus-circle"></i> Input Data Pasien Baru
+                </a>
+                <a href="#" class="button" id="btn-lihat-riwayat-pasien">
+                    <i class="fas fa-history"></i> Lihat Riwayat Pasien
+                </a>
+            </div>
+        </div>
+
+        <div id="icd10-search-page">
+            <h2>Cari Kode ICD-10 atau Diagnosis</h2>
+            <div class="search-section">
+                <input type="text" id="icdCodeInput" placeholder="Contoh: A00 atau kolera">
+            </div>
+            <div id="search-results-container">
+                <div class="icd-details">
+                    <div class="detail-item"><strong>Kode ICD-10:</strong> <span id="icd-code-display"></span></div>
+                    <div class="detail-item"><strong>Penjelasan Umum:</strong> <span id="penjelasan-umum-display"></span></div>
+                    <div class="detail-item"><strong>Kategori (Bab):</strong> <span id="kategori-bab-display"></span></div>
+                    <div class="detail-item"><strong>Organ Terkait:</strong> <span id="organ-terkait-display"></span></div>
+                    <div class="detail-item"><strong>Definisi Penyakit:</strong> <span id="definisi-penyakit-display"></span></div>
+                    <div class="detail-item"><strong>Kategori Penyakit:</strong> <span id="kategori-penyakit-display"></span></div>
+                    <div class="detail-item"><strong>Kaidah Koding:</strong> <span id="kaidah-koding-display"></span></div>
+                </div>
+                <div class="panduan-praktik">
+                    <h3>Panduan Praktik Klinis:</h3>
+                    <ul id="panduan-list"></ul>
+                </div>
+            </div>
+            <div class="back-button-container">
+                <a href="#" class="back-button" id="btn-back-to-home-icd">
+                    <i class="fas fa-arrow-left"></i> Kembali Ke Menu Utama
+                </a>
+            </div>
+        </div>
+
+        <div id="input-pasien-baru-page">
+            <h2>Input Data Rekam Medis Pasien Baru</h2>
+
+            <div class="form-input-pasien">
+                <div class="form-group">
+                    <label for="namaPasien">Nama Pasien</label>
+                    <input type="text" id="namaPasien">
+                </div>
+                <div class="form-group">
+                    <label for="nik">NIK</label>
+                    <input type="text" id="nik">
+                </div>
+                <div class="form-group">
+                    <label for="tanggalLahir">Tanggal Lahir</label>
+                    <input type="date" id="tanggalLahir" placeholder="dd/mm/yyyy">
+                </div>
+                <div class="form-group">
+                    <label for="diagnosisPasienBaru">Diagnosis</label>
+                    <input type="text" id="diagnosisPasienBaru">
+                </div>
+                <button id="simpanPasienBtn" class="button-small">Simpan</button>
+
+                <div id="data-pasien-tersimpan-container">
+                    <p id="label-data-tersimpan">Data Pasien Tersimpan:</p>
+                    <div id="last-saved-pasien-data" class="pasien-record-small">
+                        </div>
+                </div>
+                </div>
+
+            <div class="back-button-container">
+                <a href="#" class="back-button" id="btn-back-to-home-pasien-baru">
+                    <i class="fas fa-arrow-left"></i> Kembali ke Menu Utama
+                </a>
+            </div>
+        </div>
+        <div id="riwayat-pasien-page">
+            <h2>Riwayat Data Pasien</h2>
+            <div id="riwayat-list-container">
+                <p id="no-riwayat-message">Belum ada riwayat pasien yang tersimpan.</p>
+            </div>
+            <div class="back-button-container">
+                <a href="#" class="back-button" id="btn-back-to-home-riwayat">
+                    <i class="fas fa-arrow-left"></i> Kembali ke Menu Utama
+                </a>
+            </div>
+        </div>
+        </div>
+
+    <div class="footer">
+        <p class="copyright">Copyright © 2025 RMIK UEK</p>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

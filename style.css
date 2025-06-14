@@ -1,0 +1,536 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f0f2f5; /* Light gray background */
+    text-align: center;
+}
+.header {
+    background-color: #ffffff;
+    padding: 10px 20px;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    align-items: center;
+}
+.header .logo {
+    height: 50px; /* Adjust as needed */
+    margin-right: 15px;
+}
+.header .title {
+    font-size: 24px;
+    color: #333;
+}
+.main-content {
+    /* max-width: 960px; */
+    /* margin: 50px auto; */
+    max-width: 100%;
+    margin: auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.footer {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 14px;
+    color: #888;
+}
+.copyright {
+    color: #ff5722; /* Orange color for copyright text */
+}
+
+/* --- Home Page Styles --- */
+#home-page {
+    text-align: center;
+}
+.welcome-message {
+    font-size: 28px;
+    margin-bottom: 30px;
+    color: #555;
+}
+.button-group {
+    display: flex;
+    justify-content: center; /* Center the buttons */
+    gap: 20px; /* Space between buttons */
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+}
+.button {
+    background-color: #f0f0f0; /* Light gray button background */
+    border: 1px solid #ccc;
+    padding: 15px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.button:hover {
+    background-color: #e0e0e0;
+}
+.button i {
+    margin-right: 8px; /* Space between icon and text */
+}
+
+/* --- ICD-10 Search Page Styles --- */
+#icd10-search-page {
+    display: none; /* Initially hidden */
+}
+#icd10-search-page h2 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 20px;
+}
+.search-section {
+    margin-bottom: 30px;
+}
+.search-section input[type="text"] {
+    width: 300px; /* Adjust width as seen in the image */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Container for search results - hidden by default */
+#search-results-container {
+    display: none; /* Will be shown by JS after a 'search' */
+}
+
+.icd-details {
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+    margin-top: 20px;
+}
+.detail-item {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+.detail-item strong {
+    color: #333;
+    display: inline-block;
+    min-width: 150px;
+    vertical-align: top;
+}
+.detail-item span {
+    color: #666;
+}
+.panduan-praktik {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+.panduan-praktik h3 {
+    color: #333;
+    margin-bottom: 15px;
+}
+.panduan-praktik ul {
+    list-style-type: none;
+    padding: 0;
+}
+.panduan-praktik ul li {
+    margin-bottom: 8px;
+    color: #666;
+}
+.back-button-container {
+    text-align: left;
+    margin-top: 30px;
+}
+.back-button {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #333;
+    font-size: 15px;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.back-button:hover {
+    background-color: #e0e0e0;
+}
+.back-button i {
+    margin-right: 8px;
+}
+
+/* ... (existing CSS from previous steps) ... */
+
+/* NEW: Riwayat Data Pasien Page Styles */
+#riwayat-pasien-page {
+    display: none; /* Initially hidden */
+}
+
+#riwayat-pasien-page h2 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+#riwayat-list-container {
+    /* max-width: 600px; */
+    /* margin: 0 auto 30px auto; */
+    padding: 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.pasien-record {
+    border-bottom: 1px solid #eee;
+    padding: 15px 0;
+}
+
+.pasien-record:last-child {
+    border-bottom: none; /* No border for the last item */
+}
+
+.pasien-record h3 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 5px;
+    color: #007bff; /* Blue for patient name */
+}
+
+.pasien-record p {
+    margin: 3px 0;
+    color: #555;
+    font-size: 15px;
+}
+
+.pasien-record p strong {
+    color: #333;
+}
+
+#no-riwayat-message {
+    text-align: center;
+    color: #888;
+    font-style: italic;
+    padding: 20px;
+}
+
+/* Ensure back button styles are consistent or adjust as needed */
+#riwayat-pasien-page .back-button-container {
+    margin-top: 30px;
+    text-align: left;
+}
+
+/* NEW: Data Pasien Tersimpan Section Styles */
+.data-pasien-tersimpan-section {
+    max-width: 500px;
+    margin: 30px auto 0 auto; /* Added margin-top */
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #fcfcfc;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.data-pasien-tersimpan-section h3 {
+    font-size: 18px;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.pasien-tersimpan-item {
+    padding: 10px 0;
+    border-bottom: 1px dashed #eee; /* Dashed border for each item */
+}
+
+.pasien-tersimpan-item:last-child {
+    border-bottom: none;
+}
+
+.pasien-tersimpan-item p {
+    margin: 3px 0;
+    color: #555;
+    font-size: 15px;
+}
+
+.pasien-tersimpan-item p strong {
+    color: #333;
+}
+
+#no-saved-pasien-message {
+    text-align: center;
+    color: #888;
+    font-style: italic;
+    padding: 10px 0;
+}
+
+/* Input Data Pasien Baru Page Styles */
+#input-pasien-baru-page {
+    display: none; /* Initially hidden */
+}
+
+#input-pasien-baru-page h2 {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.form-input-pasien {
+    max-width: 500px;
+    /* margin: 0 auto; */
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #fcfcfc;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* NEW: Gaya seragam untuk semua input teks dan tanggal */
+.form-group input[type="text"],
+.form-group input[type="date"] {
+    width: 100%; /* Lebar penuh dari parent container */
+    padding: 10px;
+    height: 40px; /* Tinggi seragam untuk semua input */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box; /* Pastikan padding dan border dihitung dalam width/height */
+}
+
+#simpanPasienBtn {
+    background-color: #28a745; /* Green color for Save button */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+    display: block; /* Agar tombol bisa mengambil lebar penuh jika diinginkan, atau center */
+    width: fit-content; /* Sesuai lebar konten teksnya */
+    /* margin-left: auto; */
+    /* margin-right: auto; // Untuk menengahkan tombol */
+}
+
+#simpanPasienBtn:hover {
+    background-color: #218838;
+}
+
+/* NEW: Gaya untuk area data pasien tersimpan */
+#data-pasien-tersimpan-container {
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid #eee; /* Garis pemisah */
+    display: none; /* Awalnya tersembunyi */
+}
+
+#data-pasien-tersimpan-container #label-data-tersimpan {
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 16px;
+}
+
+.pasien-record-small {
+    background-color: #fff;
+    border: 1px solid #dcdcdc;
+    border-radius: 6px;
+    padding: 15px;
+    font-size: 14px;
+}
+
+.pasien-record-small p {
+    margin: 5px 0;
+    color: #555;
+}
+
+.pasien-record-small p strong {
+    color: #333;
+}
+
+/* Ensure back button styles are consistent or adjust as needed */
+#input-pasien-baru-page .back-button-container {
+    margin-top: 30px;
+    text-align: left;
+}
+
+/* NEW: Gaya untuk Input Data Pasien di Biostatistik */
+.input-data-pasien-biostatistik {
+    margin-bottom: 30px;
+}
+
+.input-data-pasien-biostatistik h3 {
+    font-size: 20px;
+    color: #444;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.form-input-biostatistik {
+    max-width: 700px; /* Lebar lebih besar untuk menampung 4 input dalam satu baris */
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #fcfcfc;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    display: flex; /* Menggunakan flexbox untuk layout horizontal */
+    flex-wrap: wrap; /* Memungkinkan wrap ke baris berikutnya jika layar kecil */
+    gap: 15px; /* Jarak antar kolom input */
+    justify-content: center; /* Tengahkan item dalam flex container */
+    align-items: flex-end; /* Ratakan item di bagian bawah */
+}
+
+.form-input-biostatistik .form-group {
+    flex: 1; /* Memberikan fleksibilitas pada setiap form-group */
+    min-width: 150px; /* Lebar minimum untuk setiap input */
+    margin-bottom: 0; /* Hapus margin-bottom di sini karena ada gap */
+}
+
+.form-input-biostatistik .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* Gaya seragam untuk input teks, angka, dan select di Biostatistik */
+.form-input-biostatistik input[type="text"],
+.form-input-biostatistik input[type="number"],
+.form-input-biostatistik select {
+    width: 100%; /* Lebar penuh dari parent container */
+    padding: 10px;
+    height: 40px; /* Tinggi seragam untuk semua input dan select */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box; /* Pastikan padding dan border dihitung dalam width/height */
+    appearance: none; /* Hapus default style untuk select pada beberapa browser */
+    background-color: #fff; /* Pastikan background putih untuk select */
+}
+
+/* Gaya khusus untuk tombol "Tambah Data" di Biostatistik */
+#tambahDataBtn {
+    background-color: #007bff; /* Warna biru untuk tombol tambah data */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    height: 40px; /* Samakan tingginya dengan input dan select */
+    align-self: flex-end; /* Ratakan tombol di bagian bawah sesuai input */
+}
+
+#tambahDataBtn:hover {
+    background-color: #0056b3;
+}
+
+/* Gaya untuk tombol kembali di biostatistik, pastikan di bawah form */
+.back-button-container-biostatistik {
+    margin-top: 30px;
+    text-align: left; /* Rata kiri seperti di halaman lain */
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Table styles (existing, just ensure they are fine) */
+.data-pasien-section {
+    margin-top: 40px;
+}
+
+.data-pasien-section h3 {
+    font-size: 20px;
+    color: #444;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.table-container {
+    max-width: 800px; /* Sesuaikan lebar tabel */
+    margin: 0 auto;
+    overflow-x: auto; /* Untuk responsivitas tabel jika konten terlalu lebar */
+}
+
+#dataPasienTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+#dataPasienTable th,
+#dataPasienTable td {
+    border: 1px solid #ddd;
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 15px;
+}
+
+#dataPasienTable th {
+    background-color: #f2f2f2;
+    color: #333;
+    font-weight: bold;
+}
+
+#dataPasienTable tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#dataPasienTable tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Statistik Diagnosis Section (existing, just ensure they are fine) */
+.statistik-diagnosis-section {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.statistik-diagnosis-section h3 {
+    font-size: 20px;
+    color: #444;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#diagnosisStats {
+    max-width: 600px; /* Sesuaikan lebar container statistik */
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #fcfcfc;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    text-align: center;
+}
+
+#diagnosisStats p {
+    color: #888;
+    font-style: italic;
+    margin-bottom: 15px;
+}
+
+/* Ensure footer and header styles are consistent globally */
+.header, .footer {
+    /* ... (existing header/footer styles) ... */
+}
